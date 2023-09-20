@@ -1,9 +1,22 @@
-import { Controller, Foldable, PointNdTextController, PopupController, Value, ViewProps, bindFoldable, connectValues, findNextTarget, forceCast, supportsTouch } from '@tweakpane/core';
-import { RotationInputGizmoController } from './RotationInputGizmoController';
-import { RotationInputSwatchController } from './RotationInputSwatchController';
-import { RotationInputView } from './RotationInputView';
-import type { Rotation } from './Rotation';
-import type { RotationInputControllerConfig } from './RotationInputControllerConfig';
+import {
+  Controller,
+  Foldable,
+  PointNdTextController,
+  PopupController,
+  Value,
+  ViewProps,
+  bindFoldable,
+  connectValues,
+  findNextTarget,
+  forceCast,
+  supportsTouch,
+} from '@tweakpane/core';
+
+import { RotationInputGizmoController } from './RotationInputGizmoController.js';
+import { RotationInputSwatchController } from './RotationInputSwatchController.js';
+import { RotationInputView } from './RotationInputView.js';
+import type { Rotation } from './Rotation.js';
+import type { RotationInputControllerConfig } from './RotationInputControllerConfig.js';
 
 export class RotationInputController implements Controller<RotationInputView> {
   public readonly value: Value<Rotation>;
@@ -72,7 +85,8 @@ export class RotationInputController implements Controller<RotationInputView> {
       this.view.element.appendChild( this.popC_.view.element );
       this.popC_.view.element.appendChild( gizmoC.view.element );
 
-      connectValues( {
+      // TODO
+      connectValues<any, any>( {
         primary: this.foldable_.value( 'expanded' ),
         secondary: this.popC_.shows,
         forward: ( p ) => p.rawValue,

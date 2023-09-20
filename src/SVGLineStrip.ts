@@ -1,7 +1,8 @@
 import { SVG_NS } from '@tweakpane/core';
-import { Vector3 } from './Vector3';
-import type { PointProjector } from './PointProjector';
-import type { Quaternion } from './Quaternion';
+
+import { Vector3 } from './Vector3.js';
+import type { PointProjector } from './PointProjector.js';
+import type { Quaternion } from './Quaternion.js';
 
 export class SVGLineStrip {
   public element: SVGPathElement;
@@ -28,7 +29,7 @@ export class SVGLineStrip {
       const transformed = vertex.applyQuaternion( rotation );
       const [ sx, sy ] = this.projector.project( transformed );
       const cmd = iVertex === 0 ? 'M' : 'L';
-      pathStr += `${ cmd }${ sx } ${ sy }`;
+      pathStr += `${cmd}${sx} ${sy}`;
     } );
 
     this.element.setAttributeNS( null, 'd', pathStr );

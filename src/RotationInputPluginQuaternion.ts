@@ -1,40 +1,54 @@
-import { BindingTarget, InputBindingPlugin, ParamsParsers, PointNdConstraint, TpError, parseNumber, parseParams, parsePickerLayout, parsePointDimensionParams } from '@tweakpane/core';
-import { Quaternion } from './Quaternion';
-import { QuaternionAssembly } from './QuaternionAssembly';
-import { RotationInputController } from './RotationInputController';
-import { createAxisQuaternion } from './createAxisQuaternion';
-import { createDimensionConstraint } from './createDimensionConstraint';
-import { parseQuaternion } from './parseQuaternion';
-import type { RotationInputPluginQuaternionParams } from './RotationInputPluginQuaternionParams';
+import {
+  BindingTarget,
+  InputBindingPlugin,
+  PointNdConstraint,
+  TpError,
+  createPlugin,
+  parseNumber,
+  parsePickerLayout,
+  parsePointDimensionParams,
+  parseRecord,
+} from '@tweakpane/core';
+
+import { Quaternion } from './Quaternion.js';
+import { QuaternionAssembly } from './QuaternionAssembly.js';
+import { RotationInputController } from './RotationInputController.js';
+import { createAxisQuaternion } from './createAxisQuaternion.js';
+import { createDimensionConstraint } from './createDimensionConstraint.js';
+import { parseQuaternion } from './parseQuaternion.js';
+import type { RotationInputPluginQuaternionParams } from './RotationInputPluginQuaternionParams.js';
 
 export const RotationInputPluginQuaternion: InputBindingPlugin<
 Quaternion,
 Quaternion,
 RotationInputPluginQuaternionParams
-> = {
+> = createPlugin( {
   id: 'rotation',
   type: 'input',
-  css: '__css__',
 
   accept( exValue: unknown, params: Record<string, unknown> ) {
     // Parse parameters object
-    const p = ParamsParsers;
-    const result = parseParams<RotationInputPluginQuaternionParams>( params, {
-      view: p.required.constant( 'rotation' ),
-      label: p.optional.string,
-      picker: p.optional.custom( parsePickerLayout ),
-      expanded: p.optional.boolean,
-      rotationMode: p.optional.constant( 'quaternion' ),
-      x: p.optional.custom( parsePointDimensionParams ),
-      y: p.optional.custom( parsePointDimensionParams ),
-      z: p.optional.custom( parsePointDimensionParams ),
-      w: p.optional.custom( parsePointDimensionParams ),
-    } );
+    const result = parseRecord<RotationInputPluginQuaternionParams>(
+      params,
+      ( p ) => ( {
+        view: p.required.constant( 'rotation' ),
+        label: p.optional.string,
+        picker: p.optional.custom( parsePickerLayout ),
+        expanded: p.optional.boolean,
+        rotationMode: p.optional.constant( 'quaternion' ),
+        x: p.optional.custom( parsePointDimensionParams ),
+        y: p.optional.custom( parsePointDimensionParams ),
+        z: p.optional.custom( parsePointDimensionParams ),
+        w: p.optional.custom( parsePointDimensionParams ),
+      } ),
+    );
 
-    return result ? {
-      initialValue: parseQuaternion( exValue ),
-      params: result,
-    } : null;
+    return result
+      ? {
+        initialValue: parseQuaternion( exValue ),
+        params: result,
+      }
+      : null;
   },
 
   binding: {
@@ -52,7 +66,7 @@ RotationInputPluginQuaternionParams
           createDimensionConstraint( 'y' in params ? params.y : undefined ),
           createDimensionConstraint( 'z' in params ? params.z : undefined ),
           createDimensionConstraint( 'w' in params ? params.w : undefined ),
-        ]
+        ],
       } );
     },
 
@@ -66,28 +80,32 @@ RotationInputPluginQuaternionParams
     },
   },
 
-  controller( { document, value, constraint, params, viewProps } ) {
-    if ( !( constraint instanceof PointNdConstraint ) ) {
+  controller( args ) {
+    // no spread support in the plugin template?
+    // {document, value, constraint, params, viewProps} = args;
+
+    if ( !( args.constraint instanceof PointNdConstraint ) ) {
       throw TpError.shouldNeverHappen();
     }
 
-    const expanded = 'expanded' in params ? params.expanded : undefined;
-    const picker = 'picker' in params ? params.picker : undefined;
+    const expanded =
+      'expanded' in args.params ? args.params.expanded : undefined;
+    const picker = 'picker' in args.params ? args.params.picker : undefined;
 
     return new RotationInputController( document, {
       axes: [
-        createAxisQuaternion( constraint.components[ 0 ] ),
-        createAxisQuaternion( constraint.components[ 1 ] ),
-        createAxisQuaternion( constraint.components[ 2 ] ),
-        createAxisQuaternion( constraint.components[ 3 ] ),
+        createAxisQuaternion( args.constraint.components[ 0 ] ),
+        createAxisQuaternion( args.constraint.components[ 1 ] ),
+        createAxisQuaternion( args.constraint.components[ 2 ] ),
+        createAxisQuaternion( args.constraint.components[ 3 ] ),
       ],
       assembly: QuaternionAssembly,
       rotationMode: 'quaternion',
       expanded: expanded ?? false,
       parser: parseNumber,
       pickerLayout: picker ?? 'popup',
-      value,
-      viewProps: viewProps,
-    } );
+      value: args.value,
+      viewProps: args.viewProps,
+    } ) as any; // TODO
   },
-};
+} );

@@ -1,4 +1,4 @@
-import { Quaternion } from './Quaternion';
+import { Quaternion } from './Quaternion.js';
 
 export class Vector3 {
   public x: number;
@@ -30,11 +30,7 @@ export class Vector3 {
       return new Vector3();
     }
 
-    return new Vector3(
-      this.x / l,
-      this.y / l,
-      this.z / l,
-    );
+    return new Vector3( this.x / l, this.y / l, this.z / l );
   }
 
   public get negated(): Vector3 {
@@ -42,27 +38,15 @@ export class Vector3 {
   }
 
   public add( v: Vector3 ): Vector3 {
-    return new Vector3(
-      this.x + v.x,
-      this.y + v.y,
-      this.z + v.z,
-    );
+    return new Vector3( this.x + v.x, this.y + v.y, this.z + v.z );
   }
 
   public sub( v: Vector3 ): Vector3 {
-    return new Vector3(
-      this.x - v.x,
-      this.y - v.y,
-      this.z - v.z,
-    );
+    return new Vector3( this.x - v.x, this.y - v.y, this.z - v.z );
   }
 
   public scale( s: number ): Vector3 {
-    return new Vector3(
-      this.x * s,
-      this.y * s,
-      this.z * s,
-    );
+    return new Vector3( this.x * s, this.y * s, this.z * s );
   }
 
   public dot( v: Vector3 ): number {
@@ -78,9 +62,9 @@ export class Vector3 {
   }
 
   public orthoNormalize( tangent: Vector3 ): {
-    normal: Vector3,
-    tangent: Vector3,
-    binormal: Vector3,
+    normal: Vector3;
+    tangent: Vector3;
+    binormal: Vector3;
   } {
     const normal = this.normalized;
     tangent = tangent.normalized;

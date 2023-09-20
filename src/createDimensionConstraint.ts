@@ -1,4 +1,11 @@
-import { CompositeConstraint, Constraint, PointDimensionParams, RangeConstraint, StepConstraint, isEmpty } from '@tweakpane/core';
+import {
+  CompositeConstraint,
+  Constraint,
+  PointDimensionParams,
+  RangeConstraint,
+  StepConstraint,
+  isEmpty,
+} from '@tweakpane/core';
 
 export function createDimensionConstraint(
   params: PointDimensionParams | undefined,

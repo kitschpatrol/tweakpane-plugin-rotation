@@ -1,13 +1,15 @@
-import { RotationInputPluginEuler } from './RotationInputPluginEuler';
-import { RotationInputPluginQuaternion } from './RotationInputPluginQuaternion';
-import type { TpPlugin } from 'tweakpane';
+import { RotationInputPluginEuler } from './RotationInputPluginEuler.js';
+import { RotationInputPluginQuaternion } from './RotationInputPluginQuaternion.js';
 
-export {
-  RotationInputPluginEuler,
-  RotationInputPluginQuaternion,
-};
+// The identifier of the plugin bundle.
+export const id = 'template';
 
-export const plugins: TpPlugin[] = [
+// This plugin template injects a compiled CSS by @rollup/plugin-replace
+// See rollup.config.js for details
+export const css = '__css__';
+
+// Export your plugin(s) as a constant `plugins`
+export const plugins = [
   RotationInputPluginEuler,
   RotationInputPluginQuaternion,
 ];

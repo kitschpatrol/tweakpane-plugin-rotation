@@ -2,5 +2,6 @@
 /docs/**/*
 /ts*/**/*
 /types/**/*
-.eslintrc.js
+.eslintrc.cjs
 rollup.config.js
+node_modules

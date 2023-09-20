@@ -1,8 +1,12 @@
-import { Euler } from './Euler';
-import { EulerOrder } from './EulerOrder';
-import { EulerUnit } from './EulerUnit';
+import { Euler } from './Euler.js';
+import { EulerOrder } from './EulerOrder.js';
+import { EulerUnit } from './EulerUnit.js';
 
-export function parseEuler( exValue: unknown, order: EulerOrder, unit: EulerUnit ): Euler {
+export function parseEuler(
+  exValue: unknown,
+  order: EulerOrder,
+  unit: EulerUnit,
+): Euler {
   if (
     typeof ( exValue as any )?.x === 'number' &&
     typeof ( exValue as any )?.y === 'number' &&

@@ -1,8 +1,9 @@
 import { Constraint, ValueMap } from '@tweakpane/core';
-import { RotationInputAxis } from './RotationInputAxis';
+
+import { RotationInputAxis } from './RotationInputAxis.js';
 
 export function createAxisQuaternion(
-  constraint: Constraint<number> | undefined,
+  constraint: Constraint<number> | undefined
 ): RotationInputAxis {
   return {
     baseStep: 0.01,
@@ -16,6 +17,6 @@ export function createAxisQuaternion(
           return value.toFixed( 1 );
         }
       },
-    } ),
+    } ) as any, // todo
   };
 }

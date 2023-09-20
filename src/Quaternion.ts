@@ -1,8 +1,8 @@
-import { Euler } from './Euler';
-import { EulerOrder } from './EulerOrder';
-import { EulerUnit } from './EulerUnit';
-import { Rotation } from './Rotation';
-import { Vector3 } from './Vector3';
+import { Euler } from './Euler.js';
+import { EulerOrder } from './EulerOrder.js';
+import { EulerUnit } from './EulerUnit.js';
+import { Rotation } from './Rotation.js';
+import { Vector3 } from './Vector3.js';
 
 export class Quaternion extends Rotation {
   public static fromAxisAngle( axis: Vector3, angle: number ): Quaternion {
@@ -21,12 +21,17 @@ export class Quaternion extends Rotation {
     const euler = eulerr.reunit( 'rad' );
 
     const [ i, j, k, sign ] =
-      euler.order === 'XYZ' ? [ 0, 1, 2, 1 ] :
-      euler.order === 'XZY' ? [ 0, 2, 1, -1 ] :
-      euler.order === 'YXZ' ? [ 1, 0, 2, -1 ] :
-      euler.order === 'YZX' ? [ 1, 2, 0, 1 ] :
-      euler.order === 'ZXY' ? [ 2, 0, 1, 1 ] :
-      [ 2, 1, 0, -1 ];
+      euler.order === 'XYZ'
+        ? [ 0, 1, 2, 1 ]
+        : euler.order === 'XZY'
+          ? [ 0, 2, 1, -1 ]
+          : euler.order === 'YXZ'
+            ? [ 1, 0, 2, -1 ]
+            : euler.order === 'YZX'
+              ? [ 1, 2, 0, 1 ]
+              : euler.order === 'ZXY'
+                ? [ 2, 0, 1, 1 ]
+                : [ 2, 1, 0, -1 ];
 
     const compo = euler.getComponents();
 
@@ -41,12 +46,7 @@ export class Quaternion extends Rotation {
     const sj = Math.sin( tj );
     const sk = Math.sin( tk );
 
-    const result = [
-      0.0,
-      0.0,
-      0.0,
-      ck * cj * ci + sk * sj * si,
-    ];
+    const result = [ 0.0, 0.0, 0.0, ck * cj * ci + sk * sj * si ];
     result[ i ] = ck * cj * si - sk * sj * ci;
     result[ j ] = sign * ( ck * sj * ci + sk * cj * si );
     result[ k ] = sk * cj * ci - ck * sj * si;
@@ -138,7 +138,9 @@ export class Quaternion extends Rotation {
   }
 
   public get lengthSq(): number {
-    return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w;
+    return (
+      this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w
+    );
   }
 
   public get length(): number {
@@ -152,25 +154,15 @@ export class Quaternion extends Rotation {
       return new Quaternion();
     }
 
-    return new Quaternion(
-      this.x / l,
-      this.y / l,
-      this.z / l,
-      this.w / l,
-    );
+    return new Quaternion( this.x / l, this.y / l, this.z / l, this.w / l );
   }
 
   public get negated(): Quaternion {
-    return new Quaternion(
-      -this.x,
-      -this.y,
-      -this.z,
-      -this.w,
-    );
+    return new Quaternion( -this.x, -this.y, -this.z, -this.w );
   }
 
   public get ban360s(): Quaternion {
-    return ( this.w < 0.0 ) ? this.negated : this;
+    return this.w < 0.0 ? this.negated : this;
   }
 
   public multiply( br: Rotation ): Quaternion {
@@ -191,8 +183,12 @@ export class Quaternion extends Rotation {
   public slerp( br: Rotation, t: number ): Quaternion {
     let b = br.quat;
 
-    if ( t === 0.0 ) { return this; }
-    if ( t === 1.0 ) { return b; }
+    if ( t === 0.0 ) {
+      return this;
+    }
+    if ( t === 1.0 ) {
+      return b;
+    }
 
     // Ref: https://github.com/mrdoob/three.js/blob/master/src/math/Quaternion.js
     // Ref: http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/
@@ -240,13 +236,29 @@ export class Quaternion extends Rotation {
     );
   }
 
-  public toMat3(): [ number, number, number, number, number, number, number, number, number ] {
+  public toMat3(): [
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+  ] {
     const { x, y, z, w } = this;
 
     return [
-      1.0 - 2.0 * y * y - 2.0 * z * z, 2.0 * x * y + 2.0 * z * w, 2.0 * x * z - 2.0 * y * w,
-      2.0 * x * y - 2.0 * z * w, 1.0 - 2.0 * x * x - 2.0 * z * z, 2.0 * y * z + 2.0 * x * w,
-      2.0 * x * z + 2.0 * y * w, 2.0 * y * z - 2.0 * x * w, 1.0 - 2.0 * x * x - 2.0 * y * y,
+      1.0 - 2.0 * y * y - 2.0 * z * z,
+      2.0 * x * y + 2.0 * z * w,
+      2.0 * x * z - 2.0 * y * w,
+      2.0 * x * y - 2.0 * z * w,
+      1.0 - 2.0 * x * x - 2.0 * z * z,
+      2.0 * y * z + 2.0 * x * w,
+      2.0 * x * z + 2.0 * y * w,
+      2.0 * y * z - 2.0 * x * w,
+      1.0 - 2.0 * x * x - 2.0 * y * y,
     ];
   }
 }

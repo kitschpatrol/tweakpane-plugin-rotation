@@ -1,8 +1,12 @@
 root = true
 
+[*]
+max_line_length = 100
+
 [*.{html}]
 indent_size = 2
 indent_style = space
+
 
 [*.{js,json,ts}]
 indent_size = 2

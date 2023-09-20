@@ -1,23 +1,32 @@
-import { Quaternion } from './Quaternion';
-import { Rotation } from './Rotation';
-import { clamp } from './utils/clamp';
-import { sanitizeAngle } from './utils/sanitizeAngle';
-import type { EulerOrder } from './EulerOrder';
-import type { EulerUnit } from './EulerUnit';
+import { Quaternion } from './Quaternion.js';
+import { Rotation } from './Rotation.js';
+import { clamp } from './utils/clamp.js';
+import { sanitizeAngle } from './utils/sanitizeAngle.js';
+import type { EulerOrder } from './EulerOrder.js';
+import type { EulerUnit } from './EulerUnit.js';
 
 export class Euler extends Rotation {
-  public static fromQuaternion( quat: Quaternion, order: EulerOrder, unit: EulerUnit ): Euler {
+  public static fromQuaternion(
+    quat: Quaternion,
+    order: EulerOrder,
+    unit: EulerUnit,
+  ): Euler {
     const m = quat.toMat3();
 
     const [ i, j, k, sign ] =
-      order === 'XYZ' ? [ 0, 1, 2, 1 ] :
-      order === 'XZY' ? [ 0, 2, 1, -1 ] :
-      order === 'YXZ' ? [ 1, 0, 2, -1 ] :
-      order === 'YZX' ? [ 1, 2, 0, 1 ] :
-      order === 'ZXY' ? [ 2, 0, 1, 1 ] :
-      [ 2, 1, 0, -1 ];
+      order === 'XYZ'
+        ? [ 0, 1, 2, 1 ]
+        : order === 'XZY'
+          ? [ 0, 2, 1, -1 ]
+          : order === 'YXZ'
+            ? [ 1, 0, 2, -1 ]
+            : order === 'YZX'
+              ? [ 1, 2, 0, 1 ]
+              : order === 'ZXY'
+                ? [ 2, 0, 1, 1 ]
+                : [ 2, 1, 0, -1 ];
 
-    const result: [ number, number, number ] = [ 0.0, 0.0, 0.0 ];
+    const result: [number, number, number] = [ 0.0, 0.0, 0.0 ];
 
     const c = m[ k + i * 3 ];
     result[ j ] = -sign * Math.asin( clamp( c, -1.0, 1.0 ) );
@@ -46,7 +55,13 @@ export class Euler extends Rotation {
   public order: EulerOrder;
   public unit: EulerUnit;
 
-  public constructor( x?: number, y?: number, z?: number, order?: EulerOrder, unit?: EulerUnit ) {
+  public constructor(
+    x?: number,
+    y?: number,
+    z?: number,
+    order?: EulerOrder,
+    unit?: EulerUnit,
+  ) {
     super();
 
     this.x = x ?? 0.0;
@@ -60,7 +75,7 @@ export class Euler extends Rotation {
     return Quaternion.fromEuler( this );
   }
 
-  public getComponents(): [ number, number, number ] {
+  public getComponents(): [number, number, number] {
     return [ this.x, this.y, this.z ];
   }
 

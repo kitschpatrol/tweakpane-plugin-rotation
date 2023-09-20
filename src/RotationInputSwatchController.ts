@@ -1,14 +1,20 @@
-import { RotationInputSwatchView } from './RotationInputSwatchView';
 import type { Controller, Value, ViewProps } from '@tweakpane/core';
-import type { Rotation } from './Rotation';
-import type { RotationInputSwatchControllerConfig } from './RotationInputSwatchControllerConfig';
 
-export class RotationInputSwatchController implements Controller<RotationInputSwatchView> {
+import { RotationInputSwatchView } from './RotationInputSwatchView.js';
+import type { Rotation } from './Rotation.js';
+import type { RotationInputSwatchControllerConfig } from './RotationInputSwatchControllerConfig.js';
+
+export class RotationInputSwatchController
+implements Controller<RotationInputSwatchView>
+{
   public readonly value: Value<Rotation>;
   public readonly view: RotationInputSwatchView;
   public readonly viewProps: ViewProps;
 
-  public constructor( doc: Document, config: RotationInputSwatchControllerConfig ) {
+  public constructor(
+    doc: Document,
+    config: RotationInputSwatchControllerConfig,
+  ) {
     this.value = config.value;
     this.viewProps = config.viewProps;
 

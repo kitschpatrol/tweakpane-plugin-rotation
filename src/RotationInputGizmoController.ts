@@ -1,12 +1,25 @@
-import { Controller, PointerData, PointerHandler, PointerHandlerEvents, Value, ViewProps, createValue, getHorizontalStepKeys, getStepForKey, getVerticalStepKeys, isArrowKey } from '@tweakpane/core';
-import { Quaternion } from './Quaternion';
-import { Rotation } from './Rotation';
-import { RotationInputGizmoView } from './RotationInputGizmoView';
-import { Vector3 } from './Vector3';
-import { iikanjiEaseout } from './utils/iikanjiEaseout';
-import { linearstep } from './utils/linearstep';
-import { sanitizeAngle } from './utils/sanitizeAngle';
-import type { RotationInputGizmoControllerConfig } from './RotationInputGizmoControllerConfig';
+import {
+  Controller,
+  PointerData,
+  PointerHandler,
+  PointerHandlerEvents,
+  Value,
+  ViewProps,
+  createValue,
+  getHorizontalStepKeys,
+  getStepForKey,
+  getVerticalStepKeys,
+  isArrowKey,
+} from '@tweakpane/core';
+
+import { Quaternion } from './Quaternion.js';
+import { Rotation } from './Rotation.js';
+import { RotationInputGizmoView } from './RotationInputGizmoView.js';
+import { Vector3 } from './Vector3.js';
+import { iikanjiEaseout } from './utils/iikanjiEaseout.js';
+import { linearstep } from './utils/linearstep.js';
+import { sanitizeAngle } from './utils/sanitizeAngle.js';
+import type { RotationInputGizmoControllerConfig } from './RotationInputGizmoControllerConfig.js';
 
 const INV_SQRT2 = 1.0 / Math.sqrt( 2.0 );
 const VEC3_XP = new Vector3( 1.0, 0.0, 0.0 );
@@ -19,11 +32,15 @@ const QUAT_BOTTOM = new Quaternion( -INV_SQRT2, 0.0, 0.0, INV_SQRT2 );
 const QUAT_LEFT = new Quaternion( 0.0, INV_SQRT2, 0.0, INV_SQRT2 );
 const QUAT_BACK = new Quaternion( 0.0, 1.0, 0.0, 0.0 );
 
-export class RotationInputGizmoController implements Controller<RotationInputGizmoView> {
+export class RotationInputGizmoController
+implements Controller<RotationInputGizmoView>
+{
   public readonly value: Value<Rotation>;
   public readonly view: RotationInputGizmoView;
   public readonly viewProps: ViewProps;
-  private readonly mode_: Value<'free' | 'angle-x' | 'angle-y' | 'angle-z' | 'angle-r' | 'auto'>;
+  private readonly mode_: Value<
+  'free' | 'angle-x' | 'angle-y' | 'angle-z' | 'angle-r' | 'auto'
+  >;
   private readonly ptHandler_: PointerHandler;
   private px_: number | null;
   private py_: number | null;
@@ -34,7 +51,10 @@ export class RotationInputGizmoController implements Controller<RotationInputGiz
     reverseAngle: boolean;
   } | null;
 
-  public constructor( doc: Document, config: RotationInputGizmoControllerConfig ) {
+  public constructor(
+    doc: Document,
+    config: RotationInputGizmoControllerConfig,
+  ) {
     this.onPadKeyDown_ = this.onPadKeyDown_.bind( this );
     this.onPointerDown_ = this.onPointerDown_.bind( this );
     this.onPointerMove_ = this.onPointerMove_.bind( this );
@@ -59,32 +79,60 @@ export class RotationInputGizmoController implements Controller<RotationInputGiz
 
     this.view.padElement.addEventListener( 'keydown', this.onPadKeyDown_ );
 
-    const ptHandlerXArcB = new PointerHandler( this.view.xArcBElement as unknown as HTMLElement );
-    ptHandlerXArcB.emitter.on( 'down', () => this.changeModeIfNotAuto_( 'angle-x' ) );
+    const ptHandlerXArcB = new PointerHandler(
+      this.view.xArcBElement as unknown as HTMLElement,
+    );
+    ptHandlerXArcB.emitter.on( 'down', () =>
+      this.changeModeIfNotAuto_( 'angle-x' ),
+    );
     ptHandlerXArcB.emitter.on( 'up', () => this.changeModeIfNotAuto_( 'free' ) );
 
-    const ptHandlerXArcF = new PointerHandler( this.view.xArcFElement as unknown as HTMLElement );
-    ptHandlerXArcF.emitter.on( 'down', () => this.changeModeIfNotAuto_( 'angle-x' ) );
+    const ptHandlerXArcF = new PointerHandler(
+      this.view.xArcFElement as unknown as HTMLElement,
+    );
+    ptHandlerXArcF.emitter.on( 'down', () =>
+      this.changeModeIfNotAuto_( 'angle-x' ),
+    );
     ptHandlerXArcF.emitter.on( 'up', () => this.changeModeIfNotAuto_( 'free' ) );
 
-    const ptHandlerYArcB = new PointerHandler( this.view.yArcBElement as unknown as HTMLElement );
-    ptHandlerYArcB.emitter.on( 'down', () => this.changeModeIfNotAuto_( 'angle-y' ) );
+    const ptHandlerYArcB = new PointerHandler(
+      this.view.yArcBElement as unknown as HTMLElement,
+    );
+    ptHandlerYArcB.emitter.on( 'down', () =>
+      this.changeModeIfNotAuto_( 'angle-y' ),
+    );
     ptHandlerYArcB.emitter.on( 'up', () => this.changeModeIfNotAuto_( 'free' ) );
 
-    const ptHandlerYArcF = new PointerHandler( this.view.yArcFElement as unknown as HTMLElement );
-    ptHandlerYArcF.emitter.on( 'down', () => this.changeModeIfNotAuto_( 'angle-y' ) );
+    const ptHandlerYArcF = new PointerHandler(
+      this.view.yArcFElement as unknown as HTMLElement,
+    );
+    ptHandlerYArcF.emitter.on( 'down', () =>
+      this.changeModeIfNotAuto_( 'angle-y' ),
+    );
     ptHandlerYArcF.emitter.on( 'up', () => this.changeModeIfNotAuto_( 'free' ) );
 
-    const ptHandlerZArcB = new PointerHandler( this.view.zArcBElement as unknown as HTMLElement );
-    ptHandlerZArcB.emitter.on( 'down', () => this.changeModeIfNotAuto_( 'angle-z' ) );
+    const ptHandlerZArcB = new PointerHandler(
+      this.view.zArcBElement as unknown as HTMLElement,
+    );
+    ptHandlerZArcB.emitter.on( 'down', () =>
+      this.changeModeIfNotAuto_( 'angle-z' ),
+    );
     ptHandlerZArcB.emitter.on( 'up', () => this.changeModeIfNotAuto_( 'free' ) );
 
-    const ptHandlerZArcF = new PointerHandler( this.view.zArcFElement as unknown as HTMLElement );
-    ptHandlerZArcF.emitter.on( 'down', () => this.changeModeIfNotAuto_( 'angle-z' ) );
+    const ptHandlerZArcF = new PointerHandler(
+      this.view.zArcFElement as unknown as HTMLElement,
+    );
+    ptHandlerZArcF.emitter.on( 'down', () =>
+      this.changeModeIfNotAuto_( 'angle-z' ),
+    );
     ptHandlerZArcF.emitter.on( 'up', () => this.changeModeIfNotAuto_( 'free' ) );
 
-    const ptHandlerRArc = new PointerHandler( this.view.rArcElement as unknown as HTMLElement );
-    ptHandlerRArc.emitter.on( 'down', () => this.changeModeIfNotAuto_( 'angle-r' ) );
+    const ptHandlerRArc = new PointerHandler(
+      this.view.rArcElement as unknown as HTMLElement,
+    );
+    ptHandlerRArc.emitter.on( 'down', () =>
+      this.changeModeIfNotAuto_( 'angle-r' ),
+    );
     ptHandlerRArc.emitter.on( 'up', () => this.changeModeIfNotAuto_( 'free' ) );
 
     [
@@ -121,7 +169,9 @@ export class RotationInputGizmoController implements Controller<RotationInputGiz
         const dx = x - this.px_;
         const dy = y - this.py_;
         const l = Math.sqrt( dx * dx + dy * dy );
-        if ( l === 0.0 ) { return; }
+        if ( l === 0.0 ) {
+          return;
+        }
 
         const axis = new Vector3( dy / l, dx / l, 0.0 );
         const quat = Quaternion.fromAxisAngle( axis, l / 68.0 );
@@ -157,11 +207,11 @@ export class RotationInputGizmoController implements Controller<RotationInputGiz
       const angle = Math.atan2( y - cy, x - cx );
 
       if ( this.angleState_ == null ) {
-        const axis = mode === 'angle-x' ? VEC3_XP :
-          mode === 'angle-y' ? VEC3_YP :
-          VEC3_ZP;
+        const axis =
+          mode === 'angle-x' ? VEC3_XP : mode === 'angle-y' ? VEC3_YP : VEC3_ZP;
 
-        const reverseAngle = axis.applyQuaternion( this.value.rawValue.quat ).z > 0.0;
+        const reverseAngle =
+          axis.applyQuaternion( this.value.rawValue.quat ).z > 0.0;
 
         this.angleState_ = {
           initialRotation: this.value.rawValue,
@@ -170,7 +220,8 @@ export class RotationInputGizmoController implements Controller<RotationInputGiz
           reverseAngle,
         };
       } else {
-        const { initialRotation, initialAngle, axis, reverseAngle } = this.angleState_;
+        const { initialRotation, initialAngle, axis, reverseAngle } =
+          this.angleState_;
 
         let angleDiff = sanitizeAngle( angle - initialAngle );
         angleDiff = reverseAngle ? -angleDiff : angleDiff;
@@ -180,11 +231,11 @@ export class RotationInputGizmoController implements Controller<RotationInputGiz
     }
   }
 
-  private onPointerDown_( ev: PointerHandlerEvents[ 'down' ] ): void {
+  private onPointerDown_( ev: PointerHandlerEvents['down'] ): void {
     this.handlePointerEvent_( ev.data );
   }
 
-  private onPointerMove_( ev: PointerHandlerEvents[ 'move' ] ): void {
+  private onPointerMove_( ev: PointerHandlerEvents['move'] ): void {
     this.handlePointerEvent_( ev.data );
   }
 

@@ -1,4 +1,8 @@
-import type { BaseInputParams, PickerLayout, PointDimensionParams } from '@tweakpane/core';
+import type {
+  BaseInputParams,
+  PickerLayout,
+  PointDimensionParams,
+} from '@tweakpane/core';
 
 export interface RotationInputPluginQuaternionParams extends BaseInputParams {
   view: 'rotation';

@@ -1,7 +1,8 @@
-import type { Rotation } from './Rotation';
 import type { Value, ViewProps } from '@tweakpane/core';
 
+import type { Rotation } from './Rotation.js';
+
 export interface RotationInputSwatchViewConfig {
-  value: Value<Rotation>
+  value: Value<Rotation>;
   viewProps: ViewProps;
 }
