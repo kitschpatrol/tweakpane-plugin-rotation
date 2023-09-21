@@ -10,6 +10,11 @@ There are a few type issues yet to be reconciled.
 
 - https://cocopon.github.io/tweakpane/migration/v4/
 - https://github.com/cocopon/tweakpane/issues/396#issuecomment-1418929095
+- https://github.com/tweakpane/plugin-essentials/commit/be4394e25c9fe6744627f3a1e0b54f215b0fee60
+
+#### Other Changes
+
+- `draggingScale` --> `keyScale` and `pointerScale` in `NumberTextProps`
 
 #### CSS variable name changes V3 → V4:
 

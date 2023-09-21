@@ -1,6 +1,7 @@
 import {
   Controller,
   Foldable,
+  PointNdAssembly,
   PointNdTextController,
   PopupController,
   Value,
@@ -9,7 +10,7 @@ import {
   connectValues,
   findNextTarget,
   forceCast,
-  supportsTouch,
+  supportsTouch
 } from '@tweakpane/core';
 
 import { RotationInputGizmoController } from './RotationInputGizmoController.js';
@@ -48,7 +49,7 @@ export class RotationInputController implements Controller<RotationInputView> {
     buttonElem.addEventListener( 'click', this.onButtonClick_ );
 
     this.textC_ = new PointNdTextController( doc, {
-      assembly: config.assembly as any, // TODO: resolve type puzzle
+      assembly: config.assembly as unknown as PointNdAssembly<Rotation>, // TODO
       axes: config.axes,
       parser: config.parser,
       value: this.value,
@@ -85,12 +86,11 @@ export class RotationInputController implements Controller<RotationInputView> {
       this.view.element.appendChild( this.popC_.view.element );
       this.popC_.view.element.appendChild( gizmoC.view.element );
 
-      // TODO
       connectValues<any, any>( {
         primary: this.foldable_.value( 'expanded' ),
         secondary: this.popC_.shows,
-        forward: ( p ) => p.rawValue,
-        backward: ( _, s ) => s.rawValue,
+        forward: ( p ) => p,
+        backward: ( _, s ) => s,
       } );
     } else if ( this.view.pickerElement ) {
       this.view.pickerElement.appendChild( this.gizmoC_.view.element );

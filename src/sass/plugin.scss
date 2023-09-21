@@ -42,7 +42,6 @@
   }
 
   .#{tp.$prefix}-popv {
-    background-color: #ebd510;
     left: calc(-1 * tp.cssVar('container-h-padding'));
     right: calc(-1 * tp.cssVar('container-h-padding'));
     top: tp.cssVar('container-unit-size');

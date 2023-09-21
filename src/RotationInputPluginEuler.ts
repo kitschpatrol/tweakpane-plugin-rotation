@@ -1,4 +1,4 @@
-import { BindingTarget, InputBindingPlugin, PointNdConstraint, TpError, createPlugin, parseNumber, parsePickerLayout, parsePointDimensionParams, parseRecord } from '@tweakpane/core';
+import { BindingTarget, InputBindingPlugin, PointNdConstraint, TpError, ValueController, createPlugin, parseNumber, parsePickerLayout, parsePointDimensionParams, parseRecord } from '@tweakpane/core';
 import { Euler } from './Euler.js';
 import { EulerUnit } from './EulerUnit.js';
 import { RotationInputController } from './RotationInputController.js';
@@ -103,6 +103,6 @@ RotationInputPluginEulerParams
       pickerLayout: picker ?? 'popup',
       value: args.value,
       viewProps: args.viewProps,
-    } ) as any; // TODO
+    } ) as unknown as ValueController<Euler>; // TODO;
   },
 } );

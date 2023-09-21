@@ -12,8 +12,9 @@ export function createAxisEuler(
     baseStep: step,
     constraint: constraint,
     textProps: ValueMap.fromObject( {
-      draggingScale: step,
+      keyScale: step,
+      pointerScale: step,
       formatter: createNumberFormatter( digits ),
-    } ) as any, // TODO
+    } )
   };
 }

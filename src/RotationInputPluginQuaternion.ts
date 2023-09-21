@@ -3,6 +3,7 @@ import {
   InputBindingPlugin,
   PointNdConstraint,
   TpError,
+  ValueController,
   createPlugin,
   parseNumber,
   parsePickerLayout,
@@ -104,8 +105,10 @@ RotationInputPluginQuaternionParams
       expanded: expanded ?? false,
       parser: parseNumber,
       pickerLayout: picker ?? 'popup',
-      value: args.value,
+      value: args.value, // issues passing quaternion to rotation
       viewProps: args.viewProps,
-    } ) as any; // TODO
+    } ) as unknown as ValueController<Quaternion>; // TODO
   },
 } );
+
+
