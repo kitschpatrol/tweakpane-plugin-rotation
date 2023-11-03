@@ -1,5 +1,5 @@
 {
-  "name": "@0b5vr/tweakpane-plugin-rotation",
+  "name": "@kitschpatrol/tweakpane-plugin-rotation",
   "version": "1.0.0",
   "description": "3D rotation input plugin for Tweakpane",
   "main": "dist/tweakpane-plugin-rotation.js",
@@ -10,6 +10,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepare": "run-s clean build",
     "prepublishOnly": "npm test",
