@@ -1,7 +1,7 @@
 {
   "name": "@kitschpatrol/tweakpane-plugin-rotation",
-  "version": "1.0.0",
-  "description": "3D rotation input plugin for Tweakpane",
+  "version": "1.0.1",
+  "description": "3D rotation input plugin for Tweakpane 4",
   "main": "dist/tweakpane-plugin-rotation.js",
   "type": "module",
   "types": "dist/types/index.d.ts",
