@@ -1,7 +1,7 @@
 # `@kitschpatrol/tweakpane-plugin-rotation`
 
-**This is a fork of [@0b5vr/tweakpane-plugin-rotation](https://github.com/0b5vr/tweakpane-plugin-rotation) with Tweakpane 4.0 compatibility. It is published to NPM for dependent projects.**
+_**Deprecated. Use [@0b5vr/tweakpane-plugin-rotation](https://github.com/0b5vr/tweakpane-plugin-rotation) instead.**_
 
-Ideally, this fork will be made unecessary when a [PR on the upstream project](https://github.com/0b5vr/tweakpane-plugin-rotation/pull/2) is merged.
+**This was a fork of [@0b5vr/tweakpane-plugin-rotation](https://github.com/0b5vr/tweakpane-plugin-rotation) with Tweakpane 4.0 compatibility.**
 
-Please refer to the [upstream project](https://github.com/0b5vr/tweakpane-plugin-rotation) for documentation and other details.
+The fork is no longer necessary since the [PR on the upstream project](https://github.com/0b5vr/tweakpane-plugin-rotation/pull/2) has been merged.
