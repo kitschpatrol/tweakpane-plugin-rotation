@@ -56,6 +56,15 @@
     </style>
     <link rel="stylesheet" href="https://www.unpkg.com/codemirror@5.62.3/lib/codemirror.css" />
     <link rel="stylesheet" href="https://www.unpkg.com/codemirror@5.62.3/theme/material-darker.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "tweakpane": "../node_modules/tweakpane/dist/tweakpane.js",
+          "@tweakpane/core": "../node_modules/@tweakpane/core/dist/index.js",
+          "tweakpane-plugin-rotation": "../dist/tweakpane-plugin-rotation.js"
+        }
+      }
+    </script>
   </head>
   <body>
     <canvas id="canvas"></canvas>
@@ -112,8 +121,8 @@ guiEuler.on('change', ({ value }) => {
     <script src="https://www.unpkg.com/codemirror@5.62.3/lib/codemirror.js"></script>
     <script src="https://www.unpkg.com/codemirror@5.62.3/mode/javascript/javascript.js"></script>
     <script type="module">
-      import * as Tweakpane from 'https://unpkg.com/tweakpane@4.0.1/dist/tweakpane.js';
-      import * as TweakpaneRotationInputPlugin from './dist/tweakpane-plugin-rotation.js';
+      import * as Tweakpane from 'tweakpane';
+      import * as TweakpaneRotationInputPlugin from 'tweakpane-plugin-rotation';
 
       const pane = new Tweakpane.Pane();
 
