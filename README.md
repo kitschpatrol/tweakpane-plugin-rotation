@@ -4,7 +4,7 @@
 
 ## Overview
 
-**This is a fork of [0b5vr](https://github.com/0b5vr)'s [@0b5vr/tweakpane-plugin-rotation](https://github.com/0b5vr/tweakpane-plugin-rotation) with externalized dependencies.**
+**This is a fork of [0b5vr](https://github.com/0b5vr)'s [tweakpane-plugin-rotation](https://github.com/0b5vr/tweakpane-plugin-rotation) with externalized dependencies.**
 
 This allows for smaller bundled file sizes in projects using multiple Tweakpane plugins.
 
@@ -25,3 +25,7 @@ If you're not using a bundler, direct ESM imports from URLs can still work if ne
 ## Implementation notes
 
 This fork uses the main branch for the releases instead of dev.
+
+Note the package's name change from `@0b5vr/tweakpane-plugin-rotation` to `@kitschpatrol/tweakpane-plugin-rotation`.
+
+ PNPM is used as the package manager.
