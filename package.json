@@ -1,6 +1,6 @@
 {
   "name": "@kitschpatrol/tweakpane-plugin-rotation",
-  "version": "0.2.0",
+  "version": "0.2.1-beta.1",
   "description": "A fork of tweakpane-plugin-rotation with build optimizations.",
   "repository": "github:kitschpatrol/tweakpane-plugin-rotation",
   "homepage": "https://0b5vr.com/tweakpane-plugin-rotation",
