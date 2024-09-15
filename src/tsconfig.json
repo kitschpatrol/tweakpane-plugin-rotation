@@ -1,8 +1,8 @@
 {
-  "compilerOptions": {
-    "lib": ["DOM", "ES2015"],
-    "moduleResolution": "NodeNext",
-    "strict": true,
-    "target": "ES6"
-  }
+	"compilerOptions": {
+		"lib": ["DOM", "ES2020"],
+		"moduleResolution": "Bundler",
+		"strict": true,
+		"target": "ES6"
+	}
 }
