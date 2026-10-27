@@ -9,7 +9,7 @@
   "homepage": "https://0b5vr.com/tweakpane-plugin-rotation",
   "author": "0b5vr",
   "license": "MIT",
-  "packageManager": "pnpm@12.11.2",
+  "packageManager": "pnpm@12.15.0",
   "engines": {
     "node": ">=18.0.0"
   },
