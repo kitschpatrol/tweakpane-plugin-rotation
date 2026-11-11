@@ -9,5 +9,10 @@ export const css: string = pluginCss
 
 export const plugins: TpPlugin[] = [RotationInputPluginEuler, RotationInputPluginQuaternion]
 
+export type { EulerOrder } from './euler-order'
+export type { EulerUnit } from './euler-unit'
+
 export { RotationInputPluginEuler } from './rotation-input-plugin-euler'
+export type { RotationInputPluginEulerParams } from './rotation-input-plugin-euler-params'
 export { RotationInputPluginQuaternion } from './rotation-input-plugin-quaternion'
+export type { RotationInputPluginQuaternionParams } from './rotation-input-plugin-quaternion-params'
