@@ -1,5 +1,8 @@
-import { clamp } from './clamp.js';
+import { clamp } from './clamp'
 
-export function saturate( x: number ): number {
-  return clamp( x, 0.0, 1.0 );
+/**
+ * Clamp `x` to the range [0, 1].
+ */
+export function saturate(x: number): number {
+	return clamp(x, 0, 1)
 }

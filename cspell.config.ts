@@ -1,0 +1,37 @@
+import { cspellConfig } from '@kitschpatrol/cspell-config'
+
+export default cspellConfig({
+	// Chagent generates the changelog.
+	ignorePaths: ['**/changelog.md'],
+	words: [
+		'arcc',
+		'arcr',
+		'arcx',
+		'arcy',
+		'arcz',
+		'axisn',
+		'axisx',
+		'axisy',
+		'axisz',
+		'binormal',
+		'chagent',
+		'Easeout',
+		'iikanji',
+		'labelcirclen',
+		'labelcirclex',
+		'labelcircley',
+		'labelcirclez',
+		'labeltext',
+		'linearstep',
+		'lofi',
+		'popv',
+		'reunit',
+		'rotationgizmo',
+		'rotationgizmov',
+		'rotationswatch',
+		'rotationswatchv',
+		'rotationv',
+		'slerp',
+		'txtv',
+	],
+})

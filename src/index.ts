@@ -1,17 +1,13 @@
-import { RotationInputPluginEuler } from './RotationInputPluginEuler.js';
-import { RotationInputPluginQuaternion } from './RotationInputPluginQuaternion.js';
-import type { TpPlugin } from 'tweakpane';
+import type { TpPlugin } from 'tweakpane'
+import { RotationInputPluginEuler } from './rotation-input-plugin-euler'
+import { RotationInputPluginQuaternion } from './rotation-input-plugin-quaternion'
+import pluginCss from './styles/plugin.scss?inline'
 
-export {
-  RotationInputPluginEuler,
-  RotationInputPluginQuaternion,
-};
+export const id = 'rotation'
 
-export const id = 'rotation';
+export const css: string = pluginCss
 
-export const css = '__css__';
+export const plugins: TpPlugin[] = [RotationInputPluginEuler, RotationInputPluginQuaternion]
 
-export const plugins: TpPlugin[] = [
-  RotationInputPluginEuler,
-  RotationInputPluginQuaternion,
-];
+export { RotationInputPluginEuler } from './rotation-input-plugin-euler'
+export { RotationInputPluginQuaternion } from './rotation-input-plugin-quaternion'

@@ -1,0 +1,236 @@
+// Import core styles
+@use '@tweakpane/core/lib/sass/tp';
+
+.#{tp.$prefix}-rotationv {
+	position: relative;
+
+	&_quat .#{tp.$prefix}-txtv_i {
+		padding-left: 0;
+	}
+
+	&_root {
+		width: 100%;
+		height: calc(2 * tp.cssVar('container-unit-size'));
+		background-color: tp.cssVar('monitor-bg');
+	}
+
+	&_h {
+		display: flex;
+		flex-wrap: nowrap;
+	}
+
+	&_s {
+		flex-grow: 0;
+		flex-shrink: 0;
+		width: tp.cssVar('container-unit-size');
+		margin-right: 4px;
+	}
+
+	&_g {
+		overflow: hidden;
+		height: 0;
+		margin-top: 0;
+		opacity: 0;
+		transition:
+			height tp.$fold-transition-duration ease-in-out,
+			opacity tp.$fold-transition-duration linear,
+			margin tp.$fold-transition-duration ease-in-out;
+	}
+
+	&#{&}-expanded &_g {
+		margin-top: tp.cssVar('container-unit-spacing');
+		opacity: 1;
+	}
+
+	.#{tp.$prefix}-popv {
+		top: tp.cssVar('container-unit-size');
+		right: calc(-1 * tp.cssVar('container-h-padding'));
+		left: calc(-1 * tp.cssVar('container-h-padding'));
+	}
+}
+
+.#{tp.$prefix}-rotationswatchv {
+	path {
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	&_b {
+		@extend %tp-button;
+
+		position: relative;
+		width: tp.cssVar('container-unit-size');
+		height: tp.cssVar('container-unit-size');
+		margin-right: 4px;
+	}
+
+	&_arc {
+		fill: none;
+		stroke: tp.cssVar('button-bg');
+		stroke-width: 1px;
+	}
+
+	&_arcr {
+		fill: tp.cssVar('button-fg');
+		stroke: tp.cssVar('button-bg');
+		stroke-width: 1px;
+	}
+}
+
+.#{tp.$prefix}-rotationgizmov {
+	padding-left: calc(tp.cssVar('container-unit-size') + 4px);
+
+	path {
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	&_p {
+		@extend %tp-input;
+
+		cursor: move;
+		position: relative;
+		overflow: hidden;
+		height: 0;
+		padding-bottom: 100%;
+	}
+
+	&_g {
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	&_axisx {
+		stroke: #eb103f;
+		stroke-width: 2px;
+	}
+
+	&_axisy {
+		stroke: #4eeb10;
+		stroke-width: 2px;
+	}
+
+	&_axisz {
+		stroke: #1068eb;
+		stroke-width: 2px;
+	}
+
+	&_axisn {
+		stroke: tp.cssVar('input-fg');
+		stroke-width: 2px;
+	}
+
+	&_arcx {
+		fill: none;
+		stroke: tp.cssVar('input-fg');
+
+		&#{&}_hover {
+			stroke: #eb103f;
+		}
+
+		&#{&}_active {
+			stroke: #eb103f;
+			stroke-width: 2px;
+		}
+	}
+
+	&_arcy {
+		fill: none;
+		stroke: tp.cssVar('input-fg');
+
+		&#{&}_hover {
+			stroke: #4eeb10;
+		}
+
+		&#{&}_active {
+			stroke: #4eeb10;
+			stroke-width: 2px;
+		}
+	}
+
+	&_arcz {
+		fill: none;
+		stroke: tp.cssVar('input-fg');
+
+		&#{&}_hover {
+			stroke: #1068eb;
+		}
+
+		&#{&}_active {
+			stroke: #1068eb;
+			stroke-width: 2px;
+		}
+	}
+
+	&_arcr {
+		fill: none;
+		stroke: tp.cssVar('input-fg');
+
+		&#{&}_hover {
+			stroke: #ebd510;
+		}
+
+		&#{&}_active {
+			stroke: #ebd510;
+			stroke-width: 2px;
+		}
+	}
+
+	&_arcc {
+		pointer-events: auto;
+		fill: none;
+		stroke: transparent;
+		stroke-width: 5px;
+	}
+
+	&_labelcirclex {
+		pointer-events: auto;
+		cursor: pointer;
+		fill: #eb103f;
+
+		&:hover {
+			opacity: 0.7;
+		}
+	}
+
+	&_labelcircley {
+		pointer-events: auto;
+		cursor: pointer;
+		fill: #4eeb10;
+
+		&:hover {
+			opacity: 0.7;
+		}
+	}
+
+	&_labelcirclez {
+		pointer-events: auto;
+		cursor: pointer;
+		fill: #1068eb;
+
+		&:hover {
+			opacity: 0.7;
+		}
+	}
+
+	&_labelcirclen {
+		pointer-events: auto;
+		cursor: pointer;
+		fill: tp.cssVar('input-fg');
+
+		&:hover {
+			opacity: 0.7;
+		}
+	}
+
+	&_labeltext {
+		fill: tp.cssVar('button-fg');
+		stroke: tp.cssVar('button-fg');
+		stroke-width: 1px;
+	}
+}
